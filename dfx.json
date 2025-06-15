@@ -1,9 +1,18 @@
 {
   "canisters": {
     "icp_huggingface_backend": {
+      "type": "custom",
+      "build": [
+        "RUSTFLAGS='--cfg getrandom_backend=\"custom\"' cargo build --target wasm32-unknown-unknown --release -p icp_huggingface_backend"
+      ],
+      "wasm": "target/wasm32-unknown-unknown/release/icp_huggingface_backend.wasm",
       "candid": "src/icp_huggingface_backend/icp_huggingface_backend.did",
-      "package": "icp_huggingface_backend",
-      "type": "rust"
+
+      "metadata": [
+          {
+            "name": "candid:service"
+          }
+        ]
     },
     "icp_huggingface_frontend": {
       "dependencies": [
