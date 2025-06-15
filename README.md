@@ -1,8 +1,22 @@
 # `icp_huggingface`
 
-Welcome to your new `icp_huggingface` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+This is a DeAI ICP project for using Huggingface models for inference. It is a simple example of how to use the Huggingface crate `Candle` to perform inference on a model. It uses a Text To Speech(TTS) model to generate speech from text.
 
-To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
+# `Steps`
+
+1. Manually download any safetensor file from any transformer model on hugging face depending on your use case. The file can be found in the file section of the huggingface models.  
+2. Refer to this [github repo](https://github.com/dfinity/examples/blob/master/rust/face-recognition/README.md) on how to upload model files to the canister. This uses a CLI to upload the model file in the canister in chunks. 
+3. Clone the repo. 
+4. Replace your filename in the lib.rs file. 
+5. Run the command `cargo build --release --target wasm32-unknown-unknown --<your-backend-canister>`
+6. Run the command `candid-extractor target/wasm32-unknown-unknown/release/icp_huggingface_backend.wasm > src/icp_huggingface_backend/icp_huggingface__backend.did`.
+
+7. `dfx start` then `dfx deploy`.
+N/B: Before uploading your model file in chunks, you need to create a new identity using the command: `dfx identity new <identity> --storage-mode plaintext`
+
+Crates in the Cargo.toml file in  the backend have a `getrandom` dependency which is not supported by the `wasm32-unknown-unknown` target. This is why we create a new `.cargo/config.toml file` in the root directory of the project. 
+
+Of note is also the `dfx.json file` which has changes to accomodate the `getrandom` crate. 
 
 To learn more before you start working with `icp_huggingface`, see the following documentation available online:
 
@@ -12,6 +26,10 @@ To learn more before you start working with `icp_huggingface`, see the following
 - [ic-cdk](https://docs.rs/ic-cdk)
 - [ic-cdk-macros](https://docs.rs/ic-cdk-macros)
 - [Candid Introduction](https://internetcomputer.org/docs/current/developer-docs/backend/candid/)
+- [HuggingFace](https://huggingface.co/learn/ml-games-course/en/unit1/what-is-hf)
+- [Transformer models](https://huggingface.co/docs/transformers/en/index)
+- [Candle](https://github.com/huggingface/candle)
+
 
 If you want to start working on your project right away, you might want to try the following commands:
 
